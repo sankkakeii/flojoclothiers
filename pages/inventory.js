@@ -5,6 +5,7 @@ import LoadingSpinner from '@/components/Loader';
 import { useFirestoreUser } from '@/config/firestoreUserContext';
 import { db } from '@/config/firebase';
 import { useRouter } from 'next/router';
+import Notiflix from 'notiflix';
 
 const Inventory = () => {
     const [item, setItem] = useState({ name: '', description: '', price: 0, quantity: 0 });
@@ -41,9 +42,11 @@ const Inventory = () => {
                 ...item,
             });
             console.log('Item added to inventory');
+            Notiflix.Notify.success('Item added to inventory');
             setItem({ name: '', description: '', price: 0, quantity: 0 });
         } catch (error) {
             console.error('Error adding item to inventory', error);
+            Notiflix.Notify.failure('Error adding item to inventory');
         }
     };
 
